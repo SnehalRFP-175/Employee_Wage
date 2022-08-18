@@ -1,41 +1,46 @@
 package EmployeeWage.BridgeLabz;
 /*
- *UC9 - Calculate Total Wage for each Company 
+ *UC10 - Manage Employee Wage for Multiple Companies 
  */
 
-public class Employee_Wage
+public class Employee_Wage 
 {
 	//Constants
 		public static final int is_part_time = 1;
 		public static final int is_full_time = 2;
 		
-		//Variables
+		private int Num_of_Company=0;
+		private Company_Info[] Company_Info_Array;
 		
-		 int totalEmpWage = 0;
-		 int totalWorkingDays = 0;
-		 int totalEmpHrs = 0;
-		 
-		 	String company;
-			private int Emp_Rate_Per_Hr;
-			private int Num_of_Working_Days;
-			private int Max_Hrs_in_Month;
-			private int total_EmpWage;
-		
-		
-		public Employee_Wage( String company ,int Emp_Rate_Per_Hr, int Num_of_Working_Days, int Max_Hrs_in_Month)
+		public Employee_Wage()
 		{
-			this.company = company;
-	        this.Emp_Rate_Per_Hr = Emp_Rate_Per_Hr;
-	        this.Num_of_Working_Days = Num_of_Working_Days;
-	        this.Max_Hrs_in_Month = Max_Hrs_in_Month;
+			Company_Info_Array = new Company_Info[5];
 		}
+		 
+		public void add_CompanyInfo(String company, int Emp_Rate_Per_Hr, int Num_of_Working_Days, int Max_Hrs_in_Month) {
+			Company_Info_Array[Num_of_Company] = new Company_Info(company, Emp_Rate_Per_Hr, Num_of_Working_Days, Max_Hrs_in_Month);
+			Num_of_Company++;
 			
-		public void Compute_EmployeeWage()
+		}
+		
+		public void Compute_EmployeeWage() 
 		{
-			System.out.println("\n \nCompany Name: "+company + "\nEmployee Rate Per Hour: " +Emp_Rate_Per_Hr + "\nNum of Working Days: "+Num_of_Working_Days +"\nMaximum Hours in Month: "+Max_Hrs_in_Month+"\n");
-
+			 for (int i = 0; i < Num_of_Company; i++) {
+				 Company_Info_Array[i].setTotalEmpWage(this.Compute_EmployeeWage(Company_Info_Array[i]));  // inside bracket return totalEmpWage
+		            System.out.println(Company_Info_Array[i]);
+		        }
 			
-			while(totalEmpHrs <= Max_Hrs_in_Month && totalWorkingDays <= Num_of_Working_Days)
+		}
+
+		 
+		private int Compute_EmployeeWage(Company_Info CompanyInfo)
+		{
+			 
+			 int totalWorkingDays = 0;
+			 int totalEmpHrs = 0;
+			 
+			 			
+			while(totalEmpHrs <= CompanyInfo.Max_Hrs_in_Month && totalWorkingDays <= CompanyInfo.Num_of_Working_Days)
 			 {	
 				 int empHrs;
 				 int empWage;
@@ -59,18 +64,14 @@ public class Employee_Wage
 				 }
 				 
 				 totalEmpHrs += empHrs;
-				 empWage = empHrs * Emp_Rate_Per_Hr;
-				
-				 System.out.println("Employee Wage :" +empWage);
-				
-				 
+				 empWage = empHrs * CompanyInfo.Emp_Rate_Per_Hr;		 
 			 }
-			 totalEmpWage = totalEmpHrs * Emp_Rate_Per_Hr;
 			
-			System.out.println("\nTotal Working Days ="+Num_of_Working_Days);
+			
+			System.out.println("\nTotal Working Days ="+CompanyInfo.Num_of_Working_Days);
 			System.out.println("Total Employee Hours ="+totalEmpHrs);
 			
-			System.out.println("Total Employee Wage for "+company+ " is-->"+totalEmpWage);
+			return totalEmpHrs * CompanyInfo.Emp_Rate_Per_Hr;
 			
 				
 		}
@@ -79,12 +80,15 @@ public class Employee_Wage
 		public static void main(String a[])
 		{	
 			
-			Employee_Wage Wipro = new Employee_Wage("Wipro", 150 , 5, 10 );
-			Employee_Wage TCS = new Employee_Wage( "TCS", 200, 5, 10 );
+			Employee_Wage empWage = new Employee_Wage();
 			
-			Wipro.Compute_EmployeeWage();
-			TCS.Compute_EmployeeWage();
+			empWage.add_CompanyInfo("Infosys", 150, 2, 10);
+			empWage.add_CompanyInfo("TCS" , 200, 3, 10);
+			
+			empWage.Compute_EmployeeWage();
+			
 				
 		}
+		}
 
-	}
+	
