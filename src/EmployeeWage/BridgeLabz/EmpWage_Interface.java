@@ -1,6 +1,12 @@
 package EmployeeWage.BridgeLabz;
 
-public class Company_Info {
+public interface EmpWage_Interface 
+{
+	public void add_CompanyInfo(String company, int Emp_Rate_Per_Hr, int Num_of_Working_Days, int Max_Hrs_in_Month);
+	public void Compute_EmployeeWage();
+}
+
+class Company_Info {
 	
 	public final String company;
 	public final int Emp_Rate_Per_Hr;
