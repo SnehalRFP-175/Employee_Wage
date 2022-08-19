@@ -1,9 +1,9 @@
 package EmployeeWage.BridgeLabz;
 /*
- *UC10 - Manage Employee Wage for Multiple Companies 
+ *UC11 - Manage Employee Wage for Multiple Companies using Interface 
  */
 
-public class Employee_Wage 
+public class Employee_Wage implements EmpWage_Interface
 {
 	//Constants
 		public static final int is_part_time = 1;
@@ -76,7 +76,6 @@ public class Employee_Wage
 				
 		}
 		
-		
 		public static void main(String a[])
 		{	
 			
@@ -89,6 +88,8 @@ public class Employee_Wage
 			
 				
 		}
+
+		
 		}
 
 	
