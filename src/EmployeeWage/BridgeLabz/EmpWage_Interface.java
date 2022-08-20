@@ -31,8 +31,11 @@ public void setTotalEmpWage(int total_EmpWage)
 
 public String toString()
 {
-	return "Total Employee Wage For Company " +company+ " is " +total_EmpWage;
-	
-}
+	return " Comapny Name :" +company+
+			"\t Total Working Days :" +Num_of_Working_Days +
+			"\t Total Employee Hours :"+Employee_Wage.totalEmpHrs+
+			"\t Total Employee Wage :" +total_EmpWage
+			;
+			}
 
 }
