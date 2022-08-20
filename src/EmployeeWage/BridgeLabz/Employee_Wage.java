@@ -1,33 +1,46 @@
 package EmployeeWage.BridgeLabz;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 /*
- *UC11 - Manage Employee Wage for Multiple Companies using Interface 
+ *UC12 -List of Multiple Companies to Manage Employee Wage. 
  */
 
 public class Employee_Wage implements EmpWage_Interface
 {
-	//Constants
+		//Constants
 		public static final int is_part_time = 1;
 		public static final int is_full_time = 2;
+		public static int totalEmpHrs = 0;
 		
-		private int Num_of_Company=0;
-		private Company_Info[] Company_Info_Array;
+		//Created Array List for multiple companies
+		private ArrayList<Company_Info> comapnyInfoList;
+		
 		
 		public Employee_Wage()
 		{
-			Company_Info_Array = new Company_Info[5];
+			comapnyInfoList = new ArrayList<>();
+			
 		}
 		 
 		public void add_CompanyInfo(String company, int Emp_Rate_Per_Hr, int Num_of_Working_Days, int Max_Hrs_in_Month) {
-			Company_Info_Array[Num_of_Company] = new Company_Info(company, Emp_Rate_Per_Hr, Num_of_Working_Days, Max_Hrs_in_Month);
-			Num_of_Company++;
+			
+			Company_Info companyInfo = new Company_Info(company, Emp_Rate_Per_Hr, Num_of_Working_Days, Max_Hrs_in_Month);
+			
+			//Adds the Information to ArrayList
+			comapnyInfoList.add(companyInfo);
+			
 			
 		}
 		
 		public void Compute_EmployeeWage() 
 		{
-			 for (int i = 0; i < Num_of_Company; i++) {
-				 Company_Info_Array[i].setTotalEmpWage(this.Compute_EmployeeWage(Company_Info_Array[i]));  // inside bracket return totalEmpWage
-		            System.out.println(Company_Info_Array[i]);
+			 for (int i = 0; i < comapnyInfoList.size(); i++) {
+				 
+				 Company_Info companyInfo = comapnyInfoList.get(i);
+				 companyInfo.setTotalEmpWage(this.Compute_EmployeeWage(companyInfo));
+				 System.out.println(companyInfo);
 		        }
 			
 		}
@@ -37,8 +50,6 @@ public class Employee_Wage implements EmpWage_Interface
 		{
 			 
 			 int totalWorkingDays = 0;
-			 int totalEmpHrs = 0;
-			 
 			 			
 			while(totalEmpHrs <= CompanyInfo.Max_Hrs_in_Month && totalWorkingDays <= CompanyInfo.Num_of_Working_Days)
 			 {	
@@ -65,15 +76,8 @@ public class Employee_Wage implements EmpWage_Interface
 				 
 				 totalEmpHrs += empHrs;
 				 empWage = empHrs * CompanyInfo.Emp_Rate_Per_Hr;		 
-			 }
-			
-			
-			System.out.println("\nTotal Working Days ="+CompanyInfo.Num_of_Working_Days);
-			System.out.println("Total Employee Hours ="+totalEmpHrs);
-			
-			return totalEmpHrs * CompanyInfo.Emp_Rate_Per_Hr;
-			
-				
+			 }	
+			return totalEmpHrs * CompanyInfo.Emp_Rate_Per_Hr;			
 		}
 		
 		public static void main(String a[])
@@ -81,8 +85,9 @@ public class Employee_Wage implements EmpWage_Interface
 			
 			Employee_Wage empWage = new Employee_Wage();
 			
-			empWage.add_CompanyInfo("Infosys", 150, 2, 10);
-			empWage.add_CompanyInfo("TCS" , 200, 3, 10);
+			empWage.add_CompanyInfo("Infosys", 150, 4, 10);
+			empWage.add_CompanyInfo("TCS" , 200, 6, 10);
+			empWage.add_CompanyInfo("Wipro" , 120, 5, 10);
 			
 			empWage.Compute_EmployeeWage();
 			
