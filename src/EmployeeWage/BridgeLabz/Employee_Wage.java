@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /*
- *UC12 -List of Multiple Companies to Manage Employee Wage. 
+ *UC13 -Store Daily Wage along with Total Wage. 
  */
 
 public class Employee_Wage implements EmpWage_Interface
@@ -13,6 +13,7 @@ public class Employee_Wage implements EmpWage_Interface
 		public static final int is_part_time = 1;
 		public static final int is_full_time = 2;
 		public static int totalEmpHrs = 0;
+		public static int  empWage;
 		
 		//Created Array List for multiple companies
 		private ArrayList<Company_Info> comapnyInfoList;
@@ -54,7 +55,6 @@ public class Employee_Wage implements EmpWage_Interface
 			while(totalEmpHrs <= CompanyInfo.Max_Hrs_in_Month && totalWorkingDays <= CompanyInfo.Num_of_Working_Days)
 			 {	
 				 int empHrs;
-				 int empWage;
 				
 				 totalWorkingDays++;
 				 int emp_check = (int) Math.floor ( Math.random() * 10 ) % 3;
@@ -72,10 +72,9 @@ public class Employee_Wage implements EmpWage_Interface
 				 default:
 					 empHrs = 0; 
 					 break;
-				 }
-				 
+				 } 
 				 totalEmpHrs += empHrs;
-				 empWage = empHrs * CompanyInfo.Emp_Rate_Per_Hr;		 
+				 empWage = empHrs * CompanyInfo.Emp_Rate_Per_Hr;	
 			 }	
 			return totalEmpHrs * CompanyInfo.Emp_Rate_Per_Hr;			
 		}
@@ -86,8 +85,8 @@ public class Employee_Wage implements EmpWage_Interface
 			Employee_Wage empWage = new Employee_Wage();
 			
 			empWage.add_CompanyInfo("Infosys", 150, 4, 10);
-			empWage.add_CompanyInfo("TCS" , 200, 6, 10);
-			empWage.add_CompanyInfo("Wipro" , 120, 5, 10);
+			empWage.add_CompanyInfo("TCS" , 200, 6, 20);
+			empWage.add_CompanyInfo("Wipro" , 120, 5, 30);
 			
 			empWage.Compute_EmployeeWage();
 			
